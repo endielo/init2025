@@ -1,8 +1,18 @@
 <template>
     <Head title="Customers" />
-    <div class="container mx-auto py-10">
-        <h1 class="text-3xl font-bold mb-5">Customers</h1>
-        <div class="rounded-md border">
+    <div class="container py-10 mx-auto">
+        
+        <div class="flex items-center justify-between mb-5">
+            <h1 class="mb-5 text-3xl font-bold">Customers</h1>
+            <Button >
+                <Link href="/customers/create" class="text-white">
+                    Create
+                </Link>
+            </Button>
+            
+        </div>
+
+        <div class="border rounded-md">
             <Table>
                 <TableHeader>
                     <TableRow>
@@ -21,6 +31,10 @@
                         }}</TableCell>
                         <TableCell>{{ customer.email }}</TableCell>
                         <TableCell>{{ customer.attn }}</TableCell>
+                        <TableCell class="flex justify-end space-x-2">
+                            <Button @click="editCustomer(customer.id)" variant="edit">Edit</Button>
+                            <Button @click="deleteCustomer(customer.id)" variant="delete">Delete</Button>
+                        </TableCell>
                     </TableRow>
                 </TableBody>
             </Table>
@@ -43,7 +57,7 @@ import {
 } from "@/components/ui/table";
 
 import Paginator from "@/components/ui/pagination/Paginator.vue";
-
+import { Button } from "@/components/ui/button";
 
 const props = defineProps({
     customers: {
@@ -52,5 +66,14 @@ const props = defineProps({
     },
 });
 
+const editCustomer = (id) => {
+    router.visit(`/customers/${id}/edit`);
+};
+
+const deleteCustomer = (id) => {
+    if (confirm("Are you sure you want to delete this customer?")) {
+        router.delete(`/customers/${id}`);
+    }
+};
 
 </script>

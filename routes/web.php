@@ -8,4 +8,4 @@ Route::get('/', function () {
     return inertia('Welcome');
 });
 
-Route::get('/customers', [CustomerController::class, 'index'])->name('customers.index');
+Route::resource('customers', CustomerController::class);
