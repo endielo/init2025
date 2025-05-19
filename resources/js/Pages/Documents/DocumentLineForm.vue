@@ -21,7 +21,7 @@
                             <Input type="text" v-model="line.product" class="w-full" />
                         </TableCell>
                         <TableCell>
-                            <Input type="number" v-model="line.unit_price" class="w-full" />
+                            <Input type="number" v-model="line.unit_price" class="w-full"  />
                         </TableCell>
                         <TableCell>
                             <Input type="text" v-model="line.unit" class="w-full" />
@@ -53,25 +53,25 @@
                     <!-- 新增行 -->
                     <TableRow>
                         <TableCell>
-                            <Input type="text" v-model="newLine.product" autofocus placeholder="Product" class="w-full" />
+                            <Input type="text" v-model="newLine.product" autofocus class="w-full" />
                         </TableCell>
                         <TableCell>
-                            <Input type="number" v-model="newLine.unit_price" placeholder="Unit Price" class="w-full" />
+                            <Input type="number" v-model="newLine.unit_price" class="w-full" />
                         </TableCell>
                         <TableCell>
-                            <Input type="text" v-model="newLine.unit" placeholder="Unit" class="w-full" />
+                            <Input type="text" v-model="newLine.unit" class="w-full" />
                         </TableCell>
                         <TableCell>
-                            <Input type="number" v-model="newLine.quantity" placeholder="Quantity" class="w-full" />
+                            <Input type="number" v-model="newLine.quantity"  class="w-full" />
                         </TableCell>
                         <TableCell>
-                            <Input type="text" v-model="newLine.description" placeholder="Description" class="w-full" />
+                            <Input type="text" v-model="newLine.description"  class="w-full" />
                         </TableCell>
                         <TableCell>
-                            <Input type="number" v-model="newLine.amount" placeholder="Amount" class="w-full" />
+                            <Input type="number" v-model="newLine.amount"  class="w-full" />
                         </TableCell>
                         <TableCell>
-                            <Input type="number" v-model="newLine.total_amount" placeholder="Total Amount" class="w-full" disabled />
+                            <Input type="number" v-model="newLine.total_amount" class="w-full" disabled />
                         </TableCell>
                         <TableCell class="text-center">
                             <Button
@@ -112,8 +112,13 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { TrashIcon, PlusIcon } from "@heroicons/vue/24/outline";
 
+
 const props = defineProps({
-    documentLines: Array,
+    documentLines: {
+        type: Array,
+        default: () => [],
+    },
+
 });
 const emit = defineEmits(['update:documentLines']);
 

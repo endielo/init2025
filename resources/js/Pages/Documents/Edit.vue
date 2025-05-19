@@ -10,6 +10,7 @@
 <script setup lang="ts">
 import DocumentForm from "./DocumentForm.vue";
 import { Head, useForm } from "@inertiajs/vue3";
+import DocumentLineForm from "./DocumentLineForm.vue";
 import { defineProps } from "vue";
 
 const props = defineProps({
