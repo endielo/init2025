@@ -1,7 +1,9 @@
+
 <template>
     <div class="container p-4 mx-auto">
         <Head title="Edit Document" />
         <DocumentForm :form="form" @submit="submit" :isEdit="true" />
+        <DocumentLineForm :documentLines="form.document_lines" @update:documentLines="updateDocumentLines" />
     </div>
 </template>
 
@@ -29,5 +31,9 @@ const submit = () => {
     form.put(route("documents.update", props.document.id), {
         preserveScroll: true,
     });
+};
+
+const updateDocumentLines = (lines: any[]) => {
+    form.document_lines = lines;
 };
 </script>

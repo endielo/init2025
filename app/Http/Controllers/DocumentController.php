@@ -21,14 +21,22 @@ class DocumentController extends Controller
 
     public function create()
     {
-        return Inertia::render('Documents/Create');
+        return Inertia::render('Documents/Create', [
+            'documentLines' => [],
+        ]);
     }
 
     public function store(DocumentRequest $request)
     {
         $validated = $request->validated();
 
-        Document::create($validated);
+        $document = Document::create($validated);
+
+        if (isset($validated['document_lines'])) {
+            foreach ($validated['document_lines'] as $line) {
+                $document->documentLines()->create($line);
+            }
+        }
 
         return redirect()->route('documents.index');
     }
@@ -37,6 +45,7 @@ class DocumentController extends Controller
     {
         return Inertia::render('Documents/Edit', [
             'document' => $document,
+            'documentLines' => $document->documentLines,
         ]);
     }
 
@@ -44,9 +53,17 @@ class DocumentController extends Controller
     {
         $validated = $request->validated();
 
-        $document->update([
-            // TODO: Add document fields
-        ]);
+        $document->update($validated);
+
+        if (isset($validated['document_lines'])) {
+            // Delete existing document lines
+            $document->documentLines()->delete();
+
+            // Create new document lines
+            foreach ($validated['document_lines'] as $line) {
+                $document->documentLines()->create($line);
+            }
+        }
 
         return redirect()->route('documents.index');
     }

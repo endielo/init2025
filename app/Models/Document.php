@@ -16,4 +16,9 @@ class Document extends Model
         'description',
         'total_amount',
     ];
+
+    public function documentLines()
+    {
+        return $this->hasMany(DocumentLine::class);
+    }
 }
